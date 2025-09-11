@@ -18,7 +18,7 @@ export default function Home() {
           </div>
 
           {/* Text */}
-          <h1 className="text-2xl font-bold text-gray-800">This is meeeeee</h1>
+          <h1 className="text-2xl font-bold text-gray-800">This is my website</h1>
           <p className="text-gray-600 text-center">
             Welcome to my Healthcare! 🚀 
           </p>
@@ -26,7 +26,7 @@ export default function Home() {
           {/* Button */}
          <Link href="/admin">
             <button className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow transition">
-              Health Care Admin
+               Know More
             </button>
           </Link>
         </div>
