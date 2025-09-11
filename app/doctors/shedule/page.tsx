@@ -105,12 +105,12 @@ export default function DoctorSchedulePage() {
   }, [schedules, query, dayFilter]);
 
   return (
-    <div className="p-6 bg-white-200 min-h-screen">
+    <div className="p-4 sm:p-6 bg-white-200 min-h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
         <h1 className="text-2xl font-semibold">Doctor Schedule</h1>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 border rounded-md px-3 py-2 bg-white">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div className="flex items-center gap-2 border rounded-md px-3 py-2 bg-white w-full sm:w-auto">
             <Search className="w-4 h-4 text-gray-500" />
             <input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder="Search by doctor, specialization, day" className="outline-none text-sm bg-transparent" />
           </div>
@@ -123,41 +123,41 @@ export default function DoctorSchedulePage() {
             <button onClick={()=>setView('table')} className={`p-2 border rounded ${view==='table' ? 'bg-gray-100' : ''}`} aria-label="Table view"><List className="w-4 h-4" /></button>
             <button onClick={()=>setView('cards')} className={`p-2 border rounded ${view==='cards' ? 'bg-gray-100' : ''}`} aria-label="Card view"><Grid3X3 className="w-4 h-4" /></button>
           </div>
-          <button onClick={()=>setShowForm(true)} className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center gap-2">
+          <button onClick={()=>setShowForm(true)} className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center justify-center gap-2">
             <Plus className="w-4 h-4" /> Add Schedule
           </button>
         </div>
       </div>
 
       {/* Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
         <div className="bg-white-200 rounded-lg p-3 shadow"><p className="text-xs text-gray-500">Total Schedules</p><p className="text-xl font-semibold">{filtered.length}</p></div>
         <div className="bg-white-200 rounded-lg p-3 shadow"><p className="text-xs text-gray-500">Unique Doctors</p><p className="text-xl font-semibold">{new Set(filtered.map(s=>s.doctor)).size}</p></div>
         <div className="bg-white-200 rounded-lg p-3 shadow"><p className="text-xs text-gray-500">Days Covered</p><p className="text-xl font-semibold">{new Set(filtered.map(s=>s.day)).size}</p></div>
       </div>
 
       {view === 'table' ? (
-        <div className="bg-white-200 rounded-lg shadow-md overflow-x-auto">
-          <table className="min-w-[700px] w-full border-collapse">
+        <div className="bg-white-200 rounded-lg shadow-md overflow-x-auto -mx-4 sm:mx-0">
+          <table className="min-w-[640px] w-full border-collapse">
             <thead className="bg-gray-300">
               <tr>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-600">Doctor</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-600">Specialization</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-600">Day</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-600">From</th>
-                <th className="text-left px-4 py-2 text-sm font-medium text-gray-600">To</th>
-                <th className="px-4 py-2 text-sm font-medium text-gray-600">Actions</th>
+                <th className="text-left px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">Doctor</th>
+                <th className="text-left px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">Specialization</th>
+                <th className="text-left px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">Day</th>
+                <th className="text-left px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">From</th>
+                <th className="text-left px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">To</th>
+                <th className="px-3 sm:px-4 py-2 text-sm font-medium text-gray-600">Actions</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((schedule) => (
                 <tr key={schedule.id} className="border-t">
-                  <td className="px-4 py-2">{schedule.doctor}</td>
-                  <td className="px-4 py-2">{schedule.specialization}</td>
-                  <td className="px-4 py-2">{schedule.day}</td>
-                  <td className="px-4 py-2">{schedule.from}</td>
-                  <td className="px-4 py-2">{schedule.to}</td>
-                  <td className="px-4 py-2">
+                  <td className="px-3 sm:px-4 py-2">{schedule.doctor}</td>
+                  <td className="px-3 sm:px-4 py-2">{schedule.specialization}</td>
+                  <td className="px-3 sm:px-4 py-2">{schedule.day}</td>
+                  <td className="px-3 sm:px-4 py-2">{schedule.from}</td>
+                  <td className="px-3 sm:px-4 py-2">{schedule.to}</td>
+                  <td className="px-3 sm:px-4 py-2">
                     <button onClick={() => handleEdit(schedule)} className="px-2 py-1 text-sm text-indigo-600 hover:underline">Edit</button>
                     <button onClick={() => handleDelete(schedule.id)} className="ml-2 px-2 py-1 text-sm text-red-600 hover:underline">Delete</button>
                   </td>
@@ -167,7 +167,7 @@ export default function DoctorSchedulePage() {
           </table>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map((s) => (
             <div key={s.id} className="bg-white-200 rounded-lg shadow p-4">
               <div className="flex items-center justify-between">
@@ -192,8 +192,8 @@ export default function DoctorSchedulePage() {
 
       {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white-200 rounded-lg p-6 w-96 shadow-lg">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 px-4">
+          <div className="bg-white-200 rounded-lg p-6 w-full max-w-md shadow-lg">
             <h2 className="text-lg font-semibold mb-4">
               {editingSchedule ? "Edit Schedule" : "Add Schedule"}
             </h2>

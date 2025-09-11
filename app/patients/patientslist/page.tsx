@@ -104,29 +104,27 @@ export default function PatientsList() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
         <h2 className="text-2xl font-bold">Patients List</h2>
-        <span className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-md text-sm">
-          Total Patients : {patients.length}
-        </span>
-        <div className="ml-auto flex gap-2">
+        <div className="flex items-center gap-2">
+          <span className="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-md text-sm">Total Patients : {patients.length}</span>
+        </div>
+        <div className="flex gap-2 sm:ml-auto">
           <button onClick={exportCSV} className="px-3 py-1 border rounded-md">Export</button>
-          <button onClick={addPatient} className="px-3 py-1 bg-indigo-600 text-white rounded-md">
-            + New Patient
-          </button>
+          <button onClick={addPatient} className="px-3 py-1 bg-indigo-600 text-white rounded-md">+ New Patient</button>
         </div>
       </div>
 
       {/* Search & Filters */}
-      <div className="flex justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <input
           type="text"
           placeholder="Search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border px-3 py-2 rounded-md w-1/3"
+          className="border px-3 py-2 rounded-md w-full sm:w-72"
         />
         <div className="flex gap-2">
           <button onClick={() => setSortRecent(!sortRecent)} className="px-3 py-1 border rounded-md">
@@ -136,8 +134,8 @@ export default function PatientsList() {
       </div>
 
       {/* Patients Table */}
-      <div className="overflow-x-auto bg-white-200 border rounded-lg shadow">
-        <table className="min-w-full text-sm">
+      <div className="overflow-x-auto bg-white-200 border rounded-lg shadow -mx-4 sm:mx-0">
+        <table className="min-w-[720px] w-full text-sm">
           <thead className="bg-white-200 text-gray-600">
             <tr>
               <th className="p-3 text-left">Patient</th>

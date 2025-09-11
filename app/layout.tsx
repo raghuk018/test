@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className="min-h-screen bg-gray-50 flex flex-col overflow-x-hidden">
         {/* 🔹 Top Navbar */}
-        <header className="w-full bg-white border-b flex items-center justify-between px-4 md:px-6 py-3 shadow-sm relative">
+        <header className="w-full bg-white border-b flex items-center justify-between px-4 sm:px-6 py-3 shadow-sm relative">
           {/* Left: Logo */}
           <div className="flex items-center gap-2">
             <img src="/01.png" alt="Logo" className="w-30 h-5 rounded-full" />
@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Middle: Search */}
-          <div className="flex-1 max-w-md mx-2 md:mx-6 hidden sm:block">
+          <div className="hidden sm:block flex-1 max-w-md mx-2 sm:mx-6">
             <div className="flex items-center bg-gray-100 rounded-lg px-3 py-2">
               <Search className="w-4 h-4 text-gray-500" />
               <input
@@ -42,17 +42,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Right: Actions */}
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <button type="button" aria-label="Calendar" className="p-1">
-                <Calendar className="w-5 h-5 text-gray-600" />
-              </button>
-              {/* User icon now opens the dropdown */}
-              <ProfileDropdown trigger="icon" />
-              <button type="button" aria-label="Toggle theme" className="p-1">
-                <Moon className="w-5 h-5 text-gray-600" />
-              </button>
-              <button type="button" aria-label="Notifications" className="p-1">
-                <Bell className="w-5 h-5 text-gray-600" />
-              </button>
+              <a href="https://calendar-link.com" target="_blank" rel="noopener noreferrer">
+                <Calendar className="w-5 h-5 text-gray-600 cursor-pointer" />
+              </a>
+              <a href="https://user-link.com" target="_blank" rel="noopener noreferrer">
+                <User className="w-5 h-5 text-gray-600 cursor-pointer" />
+              </a>
+              <a href="https://moon-link.com" target="_blank" rel="noopener noreferrer">
+                <Moon className="w-5 h-5 text-gray-600 cursor-pointer" />
+              </a>
+              <a href="https://bell-link.com" target="_blank" rel="noopener noreferrer">
+                <Bell className="w-5 h-5 text-gray-600 cursor-pointer" />
+              </a>
             </div>
 
             {/* Profile Dropdown */}
@@ -68,3 +69,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+ 
