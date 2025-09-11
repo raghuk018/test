@@ -18,15 +18,15 @@ export default function Home() {
           </div>
 
           {/* Text */}
-          <h1 className="text-2xl font-bold text-gray-800">This is my website</h1>
+          <h1 className="text-2xl font-bold text-gray-800">Expert Healthcare Solutions</h1>
           <p className="text-gray-600 text-center">
-            Welcome to my Healthcare! 🚀 
+           Providing compassionate care and advanced medical services for you and your family.
           </p>
 
           {/* Button */}
          <Link href="/admin">
             <button className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow transition">
-               Know More
+              Get Care Now
             </button>
           </Link>
         </div>
