@@ -8,7 +8,7 @@ export default function Home() {
         {/* Card */}
         <div className="bg-blue-100 shadow-xl rounded-2xl p-6 md:p-8 flex flex-col items-center gap-4 md:gap-6 w-full max-w-sm sm:max-w-md">
           {/* Profile Image */}
-          <div className="relative w-24 h-24 md:w-32 md:h-32">
+          <div className="relative w-24 h-24 md:w-32 md:h-28">
             <Image
               src="/1.png" // 🔹 Replace with your image path
               alt="Profile"
