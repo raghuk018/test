@@ -125,18 +125,18 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-3 md:p-6 space-y-6 md:space-y-8">
       {/* ---------- Header ---------- */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-6">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-        <div className="space-x-2">
+      <div className="flex flex-col gap-3 mb-4 md:mb-6">
+        <h1 className="text-xl md:text-2xl font-bold">Admin Dashboard</h1>
+        <div className="flex flex-col sm:flex-row gap-2">
           <Link href="/admin/new-appointment">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition">
+            <button className="w-full sm:w-auto bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition text-sm md:text-base">
               Book Appointment
             </button>
           </Link>
           <Link href="/admin/shedulity">
-            <button className="bg-white-200 border border-gray-300 px-4 py-2 rounded-md shadow hover:bg-gray-50 transition">
+            <button className="w-full sm:w-auto bg-white border border-gray-300 px-4 py-2 rounded-md shadow hover:bg-gray-50 transition text-sm md:text-base">
               Schedule Availability
             </button>
           </Link>
@@ -144,16 +144,16 @@ export default function Dashboard() {
       </div>
 
       {/* ---------- Stats Cards ---------- */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
         {stats.map((stat) => (
-          <div key={stat.title} className="bg-white-200 shadow rounded-lg p-4 flex justify-between items-center">
+          <div key={stat.title} className="bg-white shadow rounded-lg p-3 md:p-4">
             <div className="flex flex-col">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 mb-2">
                 <div className={`p-2 rounded-full ${stat.color}`}>{stat.icon}</div>
-                <h2 className="text-sm font-medium text-gray-500">{stat.title}</h2>
+                <h2 className="text-xs md:text-sm font-medium text-gray-500">{stat.title}</h2>
               </div>
-              <h3 className="text-2xl font-bold mt-2">{stat.value}</h3>
-              <span className={`mt-1 text-sm ${stat.change.startsWith("+") ? "text-green-500" : "text-red-500"}`}>
+              <h3 className="text-lg md:text-2xl font-bold">{stat.value}</h3>
+              <span className={`mt-1 text-xs md:text-sm ${stat.change.startsWith("+") ? "text-green-500" : "text-red-500"}`}>
                 {stat.change} in last 4 Days
               </span>
             </div>
@@ -162,45 +162,69 @@ export default function Dashboard() {
       </div>
 
       {/* ---------- Appointment Status ---------- */}
-      <div className="bg-white-200 shadow rounded-lg p-6">
-        <h2 className="text-lg font-semibold mb-4">Appointment Status</h2>
-        <div className="overflow-x-auto">
-        <table className="min-w-[600px] w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-white-200">
-              <th className="p-2 border">Patient</th>
-              <th className="p-2 border">Doctor</th>
-              <th className="p-2 border">Date</th>
-              <th className="p-2 border">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointmentStatus.map((appt) => (
-              <tr key={appt.id} className="hover:bg-white-200">
-                <td className="p-2 border">{appt.patient}</td>
-                <td className="p-2 border">{appt.doctor}</td>
-                <td className="p-2 border">{appt.date}</td>
-                <td className="p-2 border">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                      appt.status === "Completed" ? "bg-green-100 text-green-600"
-                      : appt.status === "Pending" ? "bg-yellow-100 text-yellow-600"
-                      : "bg-red-100 text-red-600"
-                    }`}>
-                    {appt.status}
-                  </span>
-                </td>
+      <div className="bg-white shadow rounded-lg p-4 md:p-6">
+        <h2 className="text-base md:text-lg font-semibold mb-4">Appointment Status</h2>
+        
+        {/* Mobile Card Layout */}
+        <div className="block md:hidden space-y-3">
+          {appointmentStatus.map((appt) => (
+            <div key={appt.id} className="bg-gray-50 p-3 rounded-lg border">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <p className="font-medium text-sm">{appt.patient}</p>
+                  <p className="text-xs text-gray-500">{appt.doctor}</p>
+                </div>
+                <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    appt.status === "Completed" ? "bg-green-100 text-green-600"
+                    : appt.status === "Pending" ? "bg-yellow-100 text-yellow-600"
+                    : "bg-red-100 text-red-600"
+                  }`}>
+                  {appt.status}
+                </span>
+              </div>
+              <p className="text-xs text-gray-600">{appt.date}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop Table Layout */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="min-w-[600px] w-full text-left border-collapse">
+            <thead>
+              <tr className="bg-gray-50">
+                <th className="p-2 border">Patient</th>
+                <th className="p-2 border">Doctor</th>
+                <th className="p-2 border">Date</th>
+                <th className="p-2 border">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {appointmentStatus.map((appt) => (
+                <tr key={appt.id} className="hover:bg-gray-50">
+                  <td className="p-2 border">{appt.patient}</td>
+                  <td className="p-2 border">{appt.doctor}</td>
+                  <td className="p-2 border">{appt.date}</td>
+                  <td className="p-2 border">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        appt.status === "Completed" ? "bg-green-100 text-green-600"
+                        : appt.status === "Pending" ? "bg-yellow-100 text-yellow-600"
+                        : "bg-red-100 text-red-600"
+                      }`}>
+                      {appt.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
       {/* ---------- Calendar + Appointments ---------- */}
-      <div className="bg-white-200 shadow rounded-lg p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Appointments</h2>
-          <select value={filter} onChange={(e) => setFilter(e.target.value)} className="border border-gray-300 rounded-md px-3 py-1 text-sm">
+      <div className="bg-white shadow rounded-lg p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+          <h2 className="text-base md:text-lg font-semibold">Appointments</h2>
+          <select value={filter} onChange={(e) => setFilter(e.target.value)} className="border border-gray-300 rounded-md px-3 py-1 text-sm w-full sm:w-auto">
             <option>All Type</option>
             <option>Completed</option>
             <option>Cancelled</option>
@@ -210,39 +234,39 @@ export default function Dashboard() {
 
         {/* Calendar */}
         <div className="flex items-center justify-between mb-2">
-          <button onClick={prevMonth} className="px-2 py-1 bg-white-200 rounded hover:bg-gray-200">◀</button>
-          <h3 className="font-semibold">{months[currentMonth]} {currentYear}</h3>
-          <button onClick={nextMonth} className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200">▶</button>
+          <button onClick={prevMonth} className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">◀</button>
+          <h3 className="font-semibold text-sm md:text-base">{months[currentMonth]} {currentYear}</h3>
+          <button onClick={nextMonth} className="px-2 py-1 bg-gray-100 rounded hover:bg-gray-200 text-sm">▶</button>
         </div>
-        <div className="grid grid-cols-7 text-center text-[12px] sm:text-sm font-medium text-gray-500 mb-2">
+        <div className="grid grid-cols-7 text-center text-xs md:text-sm font-medium text-gray-500 mb-2">
           {["Su","Mo","Tu","We","Th","Fr","Sa"].map((day) => <div key={day}>{day}</div>)}
         </div>
         <div className="grid grid-cols-7 gap-1 text-center">
           {Array(firstDay).fill(null).map((_, i) => <div key={`empty-${i}`} />)}
           {Array.from({ length: daysInMonth }, (_, i) => (
-            <div key={i} className="py-2 text-sm rounded hover:bg-blue-100 cursor-pointer">{i + 1}</div>
+            <div key={i} className="py-1 md:py-2 text-xs md:text-sm rounded hover:bg-blue-100 cursor-pointer">{i + 1}</div>
           ))}
         </div>
 
         {/* Appointment Cards */}
-        <div className="mt-6 space-y-3">
+        <div className="mt-4 md:mt-6 space-y-2 md:space-y-3">
           {filteredAppointments.map((appt) => (
-            <div key={appt.id} className={`p-4 rounded-lg flex items-center justify-between ${
+            <div key={appt.id} className={`p-3 md:p-4 rounded-lg flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 ${
                 appt.status === "completed" ? "bg-green-50"
                 : appt.status === "cancelled" ? "bg-red-50"
                 : "bg-yellow-50"}`}>
-              <div>
-                <h4 className="font-semibold text-gray-800">{appt.type}</h4>
-                <p className="text-sm text-gray-500 flex items-center gap-1">
-                  <FaCalendarAlt />
+              <div className="flex-1">
+                <h4 className="font-semibold text-gray-800 text-sm md:text-base">{appt.type}</h4>
+                <p className="text-xs md:text-sm text-gray-500 flex items-center gap-1">
+                  <FaCalendarAlt className="w-3 h-3" />
                   {new Date(appt.date).toLocaleString("en-GB", {
                     weekday: "short", day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit",
                   })}
                 </p>
               </div>
-              <div className="flex -space-x-2">
-                <img src="1.png" alt="patient" className="w-8 h-8 rounded-full border" />
-                <img src="1.png" alt="doctor" className="w-8 h-8 rounded-full border" />
+              <div className="flex -space-x-2 self-end sm:self-auto">
+                <img src="1.png" alt="patient" className="w-6 h-6 md:w-8 md:h-8 rounded-full border" />
+                <img src="1.png" alt="doctor" className="w-6 h-6 md:w-8 md:h-8 rounded-full border" />
               </div>
             </div>
           ))}
@@ -250,26 +274,26 @@ export default function Dashboard() {
       </div>
 
       {/* ---------- Popular Doctors ---------- */}
-      <div className="bg-white-200 shadow rounded-lg p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold">Popular Doctors</h2>
-          <select value={doctorFilter} onChange={(e) => setDoctorFilter(e.target.value)} className="border border-gray-300 rounded-md px-3 py-1 text-sm">
+      <div className="bg-white shadow rounded-lg p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+          <h2 className="text-base md:text-lg font-semibold">Popular Doctors</h2>
+          <select value={doctorFilter} onChange={(e) => setDoctorFilter(e.target.value)} className="border border-gray-300 rounded-md px-3 py-1 text-sm w-full sm:w-auto">
             <option>Weekly</option>
             <option>Monthly</option>
             <option>Yearly</option>
           </select>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {popularDoctors.map((doc) => (
-            <div key={doc.id} className="bg-gray-50 p-4 rounded-lg shadow hover:shadow-md transition">
-              <div className="flex items-center space-x-4">
-                <img src={doc.image} alt={doc.name} className="w-14 h-14 rounded-full border" />
-                <div>
-                  <h3 className="font-semibold">{doc.name}</h3>
-                  <p className="text-sm text-gray-500">{doc.specialty}</p>
+            <div key={doc.id} className="bg-gray-50 p-3 md:p-4 rounded-lg shadow hover:shadow-md transition">
+              <div className="flex items-center space-x-3 md:space-x-4">
+                <img src={doc.image} alt={doc.name} className="w-12 h-12 md:w-14 md:h-14 rounded-full border" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-sm md:text-base">{doc.name}</h3>
+                  <p className="text-xs md:text-sm text-gray-500">{doc.specialty}</p>
                 </div>
               </div>
-              <p className="mt-3 text-sm text-gray-600">
+              <p className="mt-2 md:mt-3 text-xs md:text-sm text-gray-600">
                 Patients this {doctorFilter}: <span className="font-semibold">{doc.patients}</span>
               </p>
             </div>
@@ -278,55 +302,57 @@ export default function Dashboard() {
       </div>
 
       {/* ---------- Extra Row: Top Dept + Schedule + Income ---------- */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Top Departments */}
-        <div className="bg-white-200shadow-md rounded-xl p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold">Top 3 Departments</h2>
+        <div className="bg-white shadow-md rounded-xl p-3 md:p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+            <h2 className="font-semibold text-sm md:text-base">Top 3 Departments</h2>
             <select
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
-              className="border rounded-md px-2 py-1 text-sm"
+              className="border rounded-md px-2 py-1 text-xs md:text-sm"
             >
               <option value="clinic">Clinic</option>
               <option value="cardiology">Cardiology</option>
               <option value="eye">Eye Checkup</option>
             </select>
           </div>
-          <PieChart width={250} height={250}>
-            <Pie data={data} cx="50%" cy="50%" labelLine={false} outerRadius={90} innerRadius={50} dataKey="value">
-              {data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
-            </Pie>
-          </PieChart>
-          <div className="text-center font-semibold -mt-8">
+          <div className="flex justify-center">
+            <PieChart width={200} height={200}>
+              <Pie data={data} cx="50%" cy="50%" labelLine={false} outerRadius={70} innerRadius={40} dataKey="value">
+                {data.map((entry, index) => <Cell key={index} fill={COLORS[index % COLORS.length]} />)}
+              </Pie>
+            </PieChart>
+          </div>
+          <div className="text-center font-semibold text-sm md:text-base -mt-4">
             Total Patient <br /> 138
           </div>
         </div>
 
         {/* Doctors Schedule */}
-        <div className="bg-white-200 shadow-md rounded-xl p-4">
+        <div className="bg-white shadow-md rounded-xl p-3 md:p-4">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold">Doctors Schedule</h2>
-            <button className="text-blue-600 text-sm">View All</button>
+            <h2 className="font-semibold text-sm md:text-base">Doctors Schedule</h2>
+            <button className="text-blue-600 text-xs md:text-sm">View All</button>
           </div>
           <div className="flex justify-around text-center mb-4">
-            <div><p className="text-xl font-bold">48</p><p className="text-sm text-gray-500">Available</p></div>
-            <div><p className="text-xl font-bold">28</p><p className="text-sm text-gray-500">Unavailable</p></div>
-            <div><p className="text-xl font-bold">12</p><p className="text-sm text-gray-500">Leave</p></div>
+            <div><p className="text-lg md:text-xl font-bold">48</p><p className="text-xs md:text-sm text-gray-500">Available</p></div>
+            <div><p className="text-lg md:text-xl font-bold">28</p><p className="text-xs md:text-sm text-gray-500">Unavailable</p></div>
+            <div><p className="text-lg md:text-xl font-bold">12</p><p className="text-xs md:text-sm text-gray-500">Leave</p></div>
           </div>
           {doctors.map((doc, i) => (
-            <div key={i} className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-                <img src={doc.image} alt={doc.name} className="w-10 h-10 rounded-full" />
+            <div key={i} className="flex items-center justify-between mb-3 md:mb-4">
+              <div className="flex items-center gap-2 md:gap-3">
+                <img src={doc.image} alt={doc.name} className="w-8 h-8 md:w-10 md:h-10 rounded-full" />
                 <div>
-                  <p className="font-semibold">{doc.name}</p>
+                  <p className="font-semibold text-xs md:text-sm">{doc.name}</p>
                   <p className="text-xs text-gray-500">{doc.specialty}</p>
                 </div>
               </div>
               {/* ✅ Redirect when clicking Book Now */}
               <button
                 onClick={handleBookNow}
-                className="bg-indigo-600 text-white px-3 py-1 rounded-md text-sm"
+                className="bg-indigo-600 text-white px-2 md:px-3 py-1 rounded-md text-xs md:text-sm"
               >
                 Book Now
               </button>
@@ -335,18 +361,18 @@ export default function Dashboard() {
         </div>
 
         {/* Income By Treatment */}
-        <div className="bg-white-200 shadow-md rounded-xl p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold">Income By Treatment</h2>
-            <select value={period} onChange={(e) => setPeriod(e.target.value)} className="border rounded-md px-2 py-1 text-sm">
+        <div className="bg-white shadow-md rounded-xl p-3 md:p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+            <h2 className="font-semibold text-sm md:text-base">Income By Treatment</h2>
+            <select value={period} onChange={(e) => setPeriod(e.target.value)} className="border rounded-md px-2 py-1 text-xs md:text-sm">
               <option>Weekly</option>
               <option>Monthly</option>
               <option>Yearly</option>
             </select>
           </div>
-          <ul>
+          <ul className="space-y-2">
             {treatments.map((t, i) => (
-              <li key={i} className="flex items-center justify-between py-2 border-b text-sm">
+              <li key={i} className="flex items-center justify-between py-2 border-b text-xs md:text-sm">
                 <div>
                   <p className="font-medium">{t.name}</p>
                   <p className="text-xs text-gray-500">{t.count} Appointments</p>
